@@ -1,0 +1,31 @@
+#include <stdio.h>
+
+#define N 8
+
+void swap(int *a, int *b) {
+  int temp = *a;
+  *a = *b;
+  *b = temp;
+}
+
+void permute(int *a, int l, int r, int permutations[][N]) {
+  int i;
+  if (l == r) {
+    for (i = 0; i < N; i++) {
+      permutations[i][N]=a[i];
+    }
+  } else {
+    for (i = l; i <= r; i++) {
+      swap((a+l), (a+i));
+      permute(a, l+1, r, permutations);
+      swap((a+l), (a+i));
+    }
+  }
+}
+
+int main() {
+  int a[] = {1, 2, 3, 4, 5, 6, 7, 8};
+  int permutations[40320][N];
+  permute(a, 0, N-1, permutations);
+  return 0;
+}
